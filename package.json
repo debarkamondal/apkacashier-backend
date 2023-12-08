@@ -1,0 +1,14 @@
+{
+	"scripts": {
+		"prebuild": "rm -rf dist",
+		"build": "esbuild ./src/*.ts --bundle --minify --sourcemap --platform=node --target=es2020 --outdir=dist"
+	},
+	"devDependencies": {
+		"@types/aws-lambda": "^8.10.130",
+		"esbuild": "^0.19.8",
+		"typescript": "^5.3.3"
+	},
+	"dependencies": {
+		"uuid": "^9.0.1"
+	}
+}

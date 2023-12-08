@@ -1,0 +1,36 @@
+service: backend
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+
+functions:
+  function1:
+    handler: dist/test.handler
+    events:
+      - httpApi: "GET /table/get"
+
+resources:
+  Resources:
+    PrimaryTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: apkacashier-primary-table
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S
+          - AttributeName: sk
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pk
+            KeyType: HASH
+          - AttributeName: sk
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+    PrimaryBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: apkacashier-primary-bucket
+        AccessControl: Private
